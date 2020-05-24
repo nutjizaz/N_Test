@@ -1,4 +1,4 @@
-require_relative 'boot'
+girequire_relative 'boot'
 
 require 'rails/all'
 
