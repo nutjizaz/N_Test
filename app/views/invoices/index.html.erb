@@ -1,0 +1,42 @@
+<div class="container mt-5">
+<% if notice %>
+  <div  role="alert">
+  <p class="alert alert-success" id="notice"><%= notice %></p>
+</div>
+<% end %>
+<div class="row">
+    <div class="col-md-12 d-flex justify-content-between">
+    <h2 class="d-inline">ใบแจ้งหนี้</h2> 
+    <%= link_to 'เพิ่มใบเสร็จ', new_invoice_path, class: 'btn btn-success d-inline' %>
+</div>
+
+<table  class="table table-hover table-bordered mt-3">
+  <thead>
+    <tr>
+      <th scope="col">ลำดับ</th>
+      <th scope="col">ราคา</th>
+      <th scope="col">วันที่ครบชำระ</th>
+      <th scope="col">ชื่อลูกค้า</th>
+      <th scope="col">เลขที่บิล</th>
+      <th scope="col" colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% i = 0 %>
+    <% @invoices.each do |invoice| %>
+      <tr>
+        <td><%= i += 1 %></td>
+        <td><%= invoice.amount %></td>
+        <td><span class="converTime"><%= invoice.invoice_date %></span></td>
+        <td><%= invoice.invoice_user %></td>
+        <td><%= invoice.bill_id %></td>
+         <%# <td><%= link_to '<i class="far fa-eye"></i>'.html_safe, invoice %></td> 
+        <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_invoice_path(invoice) %></td>
+        <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>

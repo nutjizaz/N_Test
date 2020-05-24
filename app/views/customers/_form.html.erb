@@ -1,0 +1,35 @@
+<%= form_with(model: customer, local: true) do |form| %>
+  <% if customer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(customer.errors.count, "error") %> prohibited this customer from being saved:</h2>
+
+      <ul>
+        <% customer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+     <%= form_for @customer do |f| %>
+      <div class="form-group mt-4">
+        <%= f.label "ชื่อ"  %>
+        <%= f.text_field :name ,class: 'form-control' %>
+      </div>
+
+      <div class="form-group mt-4">
+      <%= f.label "เครดิต"  %>
+      <%= f.number_field :credit ,class: 'form-control' %>
+      </div>
+      
+      <div class="form-group mt-4">
+         <%= f.submit 'บันทึก',class: 'btn btn-success mt-2'%>
+      </div>
+
+      </div>
+        <%= link_to 'Back', customers_path %>
+    <% end %>
+    
+  </div>
+<% end %>

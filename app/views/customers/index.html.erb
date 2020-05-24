@@ -1,0 +1,39 @@
+
+<div class="container mt-5">
+<% if notice %>
+  <div  role="alert">
+  <p class="alert alert-success" id="notice"><%= notice %></p>
+</div>
+<% end %>
+
+<div class="row">
+<div class="col-md-12 d-flex justify-content-between">
+<h2 class="d-inline">รายการลูกค้า</h2> 
+<%= link_to 'เพิ่มลูกค้าใหม่', new_customer_path, class: 'btn btn-success d-inline' %>
+</div>
+
+<table class="table table-hover table-bordered mt-3" >
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col" >ชื่อลูกค้า</th>
+      <th scope="col">วงเงิน</th>
+      <th scope="col" colspan="2" >Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @customers.each do |customer| %>
+      <tr>
+        <td><%= customer.id%></td>
+        <td><%= customer.name%></td>
+        <td><%= customer.credit%></td>
+        <%# <td><%= link_to '<i class="far fa-eye"></i>'.html_safe, customer %></td> 
+        <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_customer_path(customer.id) %></td>
+        <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, customer_path(customer.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+</div>
+<br>
