@@ -13,10 +13,10 @@
       <thead>
         <tr>
           <th scope="col">ลำดับ</th>
+          <th scope="col">เลขที่บิล</th>
           <th scope="col">ราคา</th>
           <th scope="col">วันที่ครบชำระ</th>
           <th scope="col">ชื่อลูกค้า</th>
-          <th scope="col">เลขที่บิล</th>
           <th scope="col" colspan="3"></th>
         </tr>
       </thead>
@@ -29,10 +29,10 @@
             <% bill.each do |b| %>
               <tr>
                 <td><%= i += 1 %></td>
+                <td><%= b.bill_no %></td>
                 <td><%= invoice.amount %></td>
                 <td><span class="converTime"><%= invoice.invoice_date %></span></td>
                 <td><%= c.name %></td>
-                <td><%= b.bill_no %></td>
                 <%# <td><%= link_to '<i class="far fa-eye"></i>'.html_safe, invoice %></td>
               <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_invoice_path(invoice) %></td>
               <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, invoice, method: :delete, data: { confirm: 'Are you sure?' } %></td>
