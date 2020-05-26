@@ -1,7 +1,7 @@
 # README
 
 * Ruby version
-  * 2.5.1
+  * 2.6.6
   
 * Configuration
   * create postgres database user with 
