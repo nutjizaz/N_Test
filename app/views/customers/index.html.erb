@@ -1,18 +1,30 @@
 
-<div class="container mt-5">
 <% if notice %>
   <div  role="alert">
-  <p class="alert alert-success" id="notice"><%= notice %></p>
-</div>
+  <% if notice != 'ลูกค้ามีบิล หรือ ใบแจ้งหนี้อยู่ จึงไม่สามารถลบได้' %>
+    <p class="alert    alert-success" id="notice"><%= notice %></p>
+    <% else  %>
+     <p class="alert    alert-danger" id="notice"><%= notice %></p>
+  <% end %>
+ </div>
+
 <% end %>
 
+<div class="container mt-5">
 <div class="row">
-<div class="col-md-12 d-flex justify-content-between">
-<h2 class="d-inline">รายการลูกค้า</h2> 
-<%= link_to 'เพิ่มลูกค้าใหม่', new_customer_path, class: 'btn btn-success d-inline' %>
+  <div class=" mb-2 card-header pd-0 d-flex align-items-center col-md-12">
+  <div class="mr-auto"> <h5 class=" font-weight-bold text-primary mb-0"><i class="fas fa-user"></i> รายการลูกค้า</h5> </div>
+  
+
+  <%= link_to 'เพิ่มลูกค้าใหม่', new_customer_path, class: 'btn btn-success d-inline' %>
+  </div>
+
+<%# <h2 class="d-inline">รายการลูกค้า</h2>  %>
+
 </div>
 
 <table class="table table-hover table-bordered mt-3" >
+
   <thead>
     <tr>
       <th scope="col">ID</th>
@@ -29,11 +41,10 @@
         <td><%= customer.credit%></td>
         <%# <td><%= link_to '<i class="far fa-eye"></i>'.html_safe, customer %></td> 
         <td><%= link_to '<i class="fas fa-edit"></i>'.html_safe, edit_customer_path(customer.id) %></td>
-        <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, customer_path(customer.id), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '<i class="fas fa-trash"></i>'.html_safe, customer_path(customer.id), method: :delete, data: { confirm: 'คุณต้องการลบ "'+customer.name+'" หรือไม่ ?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-</div>
 </div>
 <br>

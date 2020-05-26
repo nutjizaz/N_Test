@@ -74,10 +74,10 @@ document.addEventListener("turbolinks:load", function() {
     let bill_due_date = cutValue[2]
     let bill_customer_id = cutValue[3]
     
-    document.getElementById("bill_no").value = bill_id
-    document.getElementById("bill_amount").value = bill_amount
-    document.getElementById("bill_due").value = bill_due_date
-    document.getElementById("bill_customer_id").value = bill_customer_id
+    $('.bill_no').val(bill_id);
+    $('#bill_amount').val(bill_amount);
+    $('#bill_due').val(bill_due_date);
+    $('.bill_customer_class').val(bill_customer_id);
 
     });
 

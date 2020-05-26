@@ -1,5 +1,7 @@
 
-<h1><%= action %>บิล</h1>
+<h5 class=" mb-2 font-weight-bold text-primary card-header pd-0"><i class="fas fa-file-invoice"></i> <%= action %>บิล</h5>
+<div class="container-fluid">
+
 <%= form_with(model: bill, local: true) do |form| %>
   <% if bill.errors.any? %>
     <div id="error_explanation">
@@ -16,30 +18,31 @@
   <div class="actions">
       <div class="form-group mt-4">
         <%= form.label "เลขที่บิล"  %>
-        <%= form.text_field :bill_no ,class: 'form-control' %>
+        <%= form.text_field :bill_no ,class: 'form-control',required: true %>
       </div>
       
       <div class="form-group mt-4">
       <%= form.label "ราคา"  %>
-      <%= form.text_field :amount ,class: 'form-control' %>
+      <%= form.text_field :amount, step: :any  ,class: 'form-control',required: true %>
        </div>
 
       <div class="form-group mt-4">
       <%= form.label "วันที่ครบชำระ"  %>
-      <%= form.date_field :due_date ,class: 'form-control' %>
+      <%= form.date_field :due_date ,class: 'form-control',required: true %>
        </div>
 
      <div class="form-group mt-4">
       <%= form.label "ลูกค้า"  %>
-      <%= form.collection_select :customer_id, Customer.all,:id,:name,{:prompt=> 'กรุณาเลือกลูกค้า'}, {:class=>'form-control'} %>
+      <%= form.collection_select :customer_id, Customer.all,:id,:name,{:prompt=> 'กรุณาเลือกลูกค้า'}, {:class=>'form-control',required: true} %>
       </div>
 
       <div class="form-group mt-4">
-         <%= form.submit 'Submit',class: 'btn btn-success mt-2'%>
+         <%= form.submit 'บันทึก',class: 'btn btn-success mt-2'%>
       </div>
       
       </div>
-         <%= link_to 'Back', bills_path %>
+         <div class="mb-3"><%= link_to '<i class="fas fa-chevron-left"></i> ย้อนกลับ'.html_safe, bills_path %></div>
+  </div>
   </div>
     
 <% end %>

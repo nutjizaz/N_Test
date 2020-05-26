@@ -1,6 +1,6 @@
 class CustomersController < ApplicationController
   before_action :set_customer, only: [:show, :edit, :update, :destroy]
-
+  rescue_from ActiveRecord::InvalidForeignKey, with: :invalid_foreign_key
   # GET /customers
   # GET /customers.json
   def index
@@ -77,7 +77,9 @@ class CustomersController < ApplicationController
         params.require(:customer).permit(:name, :credit)
     end
 
-    
+    def invalid_foreign_key
+        redirect_to customers_url, notice: 'ลูกค้ามีบิล หรือ ใบแจ้งหนี้อยู่ จึงไม่สามารถลบได้'
+      end
     # def create_customer_params
     #     params.require(:customer).permit(:name, :credit)
     # end

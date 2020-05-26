@@ -1,185 +1,171 @@
-
-<div class="container mt-4">
-
-<% if notice %>
-  <div  role="alert">
-  <p class="alert alert-success" id="notice"><%= notice %></p>
-</div>
-<% end %>
-
-<h2>รายการใบแจ้งหนี้</h2>
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-  <li class="nav-item">
-    <a class="nav-link" id="pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">บิล ยังไม่ต้องแจ้งหนี้ 
-    (<%= @bill_pending.size %>ใบ)</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="false">บิล ถึงเวลาแจ้งหนี้
-    (<%= @bill_active.size %>ใบ)
-    </a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" id="invoiced-tab" data-toggle="tab" href="#invoiced" role="tab" aria-controls="invoiced" aria-selected="false">บิล แจ้งหนี้แล้ว
-    (<%= @bill_invoiced.size %>ใบ)
-    </a>
-  </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-
-
-
-<div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
-
-    <div class="col-md-12 d-flex justify-content-between mb-2 mt-2">
-        <h2 class="d-inline">บิล ยังไม่ต้องแจ้งหนี้</h2> 
-        <%= link_to 'เพิ่มบิล', new_bill_path, class: 'btn btn-success d-inline-flex align-items-center' %>
+  <% if notice %>
+    <div  role="alert">
+      <p class="alert alert-success  " id="notice"><%= notice %></p>
     </div>
-
-    <table class="table table-hover table-bordered">
-        <thead>
+  <% end %>
+  
+<div class="container mt-4 pl-0 pr-0">
+  <h5 class=" mb-2 font-weight-bold text-primary card-header pd-0"><i class="fas fa-file-invoice"></i> รายการใบแจ้งหนี้</h5>
+  <div class="container-fluid">
+    <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link" id="pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">บิล ยังไม่ต้องแจ้งหนี้ 
+          (<%= @bill_pending.size %>ใบ)</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="false">บิล ถึงเวลาแจ้งหนี้
+          (<%= @bill_active.size %>ใบ)
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="invoiced-tab" data-toggle="tab" href="#invoiced" role="tab" aria-controls="invoiced" aria-selected="false">บิล แจ้งหนี้แล้ว
+          (<%= @bill_invoiced.size %>ใบ)
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+        <div class="col-md-12 d-flex justify-content-between align-items-center my-3">
+          <h6 class="d-inline font-weight-bold">บิล ยังไม่ต้องแจ้งหนี้</h2>
+          <%= link_to 'เพิ่มบิล', new_bill_path, class: 'btn btn-success d-inline-flex align-items-center' %>
+        </div>
+        <table class="table table-hover table-bordered">
+          <thead>
             <tr>
-                <th>เลขที่บิล</th>
-                <th>วันที่ครบชำระ</th>
-                <th>สถานะ</th>
+              <th>เลขที่บิล</th>
+              <th>วันที่ครบชำระ</th>
+              <th>สถานะ</th>
             </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
             <% @bill_pending.each do |bill| %>
-            <tr>
-            <td><%= bill.bill_no %></td>
-            <td >
-            <span class="converTime">
-                <%= bill.due_date %>
-            </span>
-            </td>
-            <td width="200">
-            <span class="badge badge-primary">ยังไม่ถึงกำหนด</span>
-            </td>
-            </tr>
-            <% end %>
-        </tbody>
-    </table>
-
-  </div>
-
-  <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
-<div class="col-md-12 d-flex justify-content-between mb-2 mt-2">
-    <h2 class="d-inline">บิล ถึงเวลาแจ้งหนี้</h2> 
-    <%= link_to 'เพิ่มบิล', new_bill_path, class: 'btn btn-success d-inline-flex align-items-center' %>
-</div>
-    <table class="table table-hover table-bordered">
-        <thead>
-            <tr>
-            <th>เลขที่บิล</th>
-            <th>วันที่ครบชำระ</th>
-            <th>Amount</th>
-            <th>สถานะ</th>
-            </tr>
-        </thead>
-
-         <tbody> 
-           <%# <%= @bills.each do |bill| %> 
-          <%# <% end %>
-        <%# <%= @bill_test.each do |bill2| %>  
-            <%# <% end %> 
-                <% @bill_active.each do |bill| %>
-                    
-                        <tr data-toggle="modal" data-target="#myModal" id="value" value="" 
-                        data-link="<%=bill.amount %>##<%=bill.id %>##<%=bill.due_date %>##<%=bill.customer_id%>"
-                         >
-                            <td><%= bill.bill_no %> </td>
-                            <td ><span class="converTime"><%= bill.due_date %></span></td>
-                            <td><%= bill.amount %></td>
-                            <td width="200">
-                                <% if bill.due_date < (Date.today - 7.day ) %>
-                                <span class="badge badge-danger">เลยกำหนดชำระแล้ว</span>
-                                <% else %>
-                                <span class="badge badge-warning">ถึงเวลาแจ้งหนี้</span>
-                                <% end %>
-                            </td>
-                        </tr>
-                <% end %>
-              </tbody> 
-    </table>
-  </div>
-  <div class="tab-pane fade" id="invoiced" role="tabpanel" aria-labelledby="invoiced-tab">
-<div class="col-md-12 d-flex justify-content-between mb-2 mt-2">
-    <h2 class="d-inline">บิล แจ้งหนี้แล้ว</h2> 
-    <%= link_to 'เพิ่มบิล', new_bill_path, class: 'btn btn-success d-inline-flex align-items-center' %>
-</div>
-    <table class="table table-hover table-bordered">
-        <thead>
-            <tr>
-            <th >เลขที่บิล</th>
-            <th>วันที่ครบชำระ</th>
-            <th>สถานะ</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% @bill_invoiced.each do |bill| %>
-            <tr>
+              <tr>
                 <td><%= bill.bill_no %></td>
-                <td>
-                 <span class="converTime">
+                <td >
+                  <span class="converTime">
                     <%= bill.due_date %>
-                </span>
+                  </span>
                 </td>
                 <td width="200">
-                    <% if bill.due_date < (Date.today - 7.day ) %>
-                    <span class="badge badge-danger">เลยกำหนดชำระแล้ว</span>
-                    <% else %>
-                    <span class="badge badge-warning">ถึงเวลาแจ้งหนี้</span>
-                    <% end %>
-                 </td>
-            </tr>
+                  <span class="badge badge-primary">ยังไม่ถึงกำหนด</span>
+                </td>
+              </tr>
             <% end %>
-        </tbody>
-    </table>
-
-  </div>
-</div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">เพิ่มใบแจ้งหนี้</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+          </tbody>
+        </table>
       </div>
-      <div class="modal-body">
-        <div class="actions">
-            <%= form_for :invoice, url: create_invoice_path  do |f|  %>
-                <div class="form-group mt-4">
-                    <%= f.label "เลขที่บิล"  %>
-                     <%= f.collection_select :bill_id, Bill.all,:id,:bill_no,{:prompt=> 'กรุณาเลือกเลขที่บิล'}, {:class=>'form-control',:id=>'bill_no'} %>
-                </div>
-                
-                <div class="form-group mt-4">
-                    <%= f.label "ราคา"  %>
-                    <%= f.text_field :amount ,class: 'form-control',id:"bill_amount" %>
-                </div>
-
-                <div class="form-group mt-4">
-                    <%= f.label "ลูกค้า"  %>
-                    <%= f.collection_select :invoice_user, Customer.all,:id,:name,{:prompt=> 'กรุณาเลือกลูกค้า'}, {:class=>'form-control',:id=>'bill_customer_id'} %>
-                </div>
-
-                <div class="form-group mt-4">
-                    <%= f.label "วันที่ครบชำระ"  %>
-                    <%= f.date_field :invoice_date ,class: 'form-control',id:"bill_due" %>
-                </div>
-
-                <div class="form-group mt-4">
-                    <%= f.submit 'บันทึก',class: 'btn btn-success mt-2'%>
-                </div>
-                <% end %>
+      <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
+        <div class="col-md-12 d-flex justify-content-between align-items-center my-3">
+          <h6 class="d-inline font-weight-bold">บิล ถึงเวลาแจ้งหนี้</h2>
+          <%= link_to 'เพิ่มบิล', new_bill_path, class: 'btn btn-success d-inline-flex align-items-center' %>
         </div>
-
+        <table class="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th>เลขที่บิล</th>
+              <th>วันที่ครบชำระ</th>
+              <th>ราคา</th>
+              <th>สถานะ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%# <%= @bills.each do |bill| %>
+              <%# <% end %>
+              <%# <%= @bill_test.each do |bill2| %>
+                <%# <% end %>
+                <% @bill_active.each do |bill| %>
+                  <tr class="cursor-pointer" data-toggle="modal" data-target="#myModal" id="value" value="" 
+                        data-link="<%=bill.amount %>##<%=bill.id %>##<%=bill.due_date %>##<%=bill.customer_id%>"
+                         >
+                    <td><%= bill.bill_no %> </td>
+                    <td ><span class="converTime"><%= bill.due_date %></span></td>
+                    <td><%= bill.amount %></td>
+                    <td width="200">
+                      <% if bill.due_date < (Date.today - 7.day ) %>
+                        <span class="badge badge-danger">เลยกำหนดชำระแล้ว</span>
+                      <% else %>
+                        <span class="badge badge-warning">ถึงเวลาแจ้งหนี้</span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+          <div class="tab-pane fade" id="invoiced" role="tabpanel" aria-labelledby="invoiced-tab">
+            <div class="col-md-12 d-flex justify-content-between align-items-center my-3">
+              <h6 class="d-inline font-weight-bold">บิล แจ้งหนี้แล้ว</h2>
+              <%= link_to 'เพิ่มบิล', new_bill_path, class: 'btn btn-success d-inline-flex align-items-center' %>
+            </div>
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th >เลขที่บิล</th>
+                  <th>วันที่ครบชำระ</th>
+                  <th>สถานะ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @bill_invoiced.each do |bill| %>
+                  <tr>
+                    <td><%= bill.bill_no %></td>
+                    <td>
+                      <span class="converTime">
+                        <%= bill.due_date %>
+                      </span>
+                    </td>
+                    <td width="200">
+                      <% if bill.due_date < (Date.today - 7.day ) %>
+                        <span class="badge badge-danger">เลยกำหนดชำระแล้ว</span>
+                      <% else %>
+                        <span class="badge badge-warning">ถึงเวลาแจ้งหนี้</span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">เพิ่มใบแจ้งหนี้</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="actions">
+              <%= form_for :invoice, url: create_invoice_path  do |f|  %>
+                <div class="form-group mt-4">
+                  <%= f.label "เลขที่บิล"  %>
+                  <%= f.text_field :bill_id , {:class=>'bill_no d-none'}   %>
+                  <%= f.collection_select :bill_id, Bill.all,:id,:bill_no,{:prompt=> 'กรุณาเลือกเลขที่บิล'}, {:class=>'form-control bill_no',:disabled =>"true"} %>
+                </div>
+                <div class="form-group mt-4">
+                  <%= f.label "ราคา"  %>
+                  <%= f.text_field :amount ,class: 'form-control',id:"bill_amount",readonly:true %>
+                </div>
+                <div class="form-group mt-4">
+                  <%= f.label "ลูกค้า" %>
+                  <%= f.text_field :invoice_user , {:class=>'bill_customer_class d-none'}   %>
+                  <%= f.select :invoice_user, Customer.all.collect {|c| [ c.name, c.id ] }, {}, { :class => 'form-control' ,:disabled =>"true",:class=>'bill_customer_class form-control'} %>
+                </div>
+                <div class="form-group mt-4">
+                  <%= f.label "วันที่ครบชำระ"  %>
+                  <%= f.date_field :invoice_date ,class: 'form-control',id:"bill_due",readonly:true %>
+                </div>
+                <div class="form-group mt-4">
+                  <%= f.submit 'บันทึก',class: 'btn btn-success mt-2'%>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

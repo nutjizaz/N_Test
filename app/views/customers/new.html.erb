@@ -1,14 +1,4 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md-12 pl-0 pr-0 mt-5">
-    <h2 class="d-inline ">เพิ่มลูกค้าใหม่</h2>
-    </div>
-    
-    <%= render 'form', customer: @customer %>
 
-   
-    <%# <%= render 'form', customer: @customer, class: 'btn btn-success d-inline' %>
-  </div>
-  
+<div class="container mt-4 pl-0 pr-0">
+    <%= render 'form', customer: @customer ,action: 'เพิ่ม'%>
 </div>
-
