@@ -15,26 +15,29 @@
 
   <div class="actions">
      <%= form_for @invoice do |f| %>
-      <div class="form-group mt-4">
-        <%= f.label "ราคา"  %>
-        <%= f.text_field :amount, step: :any  ,class: 'form-control',required: true %>
-      </div>
 
-      <div class="form-group mt-4">
-      <%= f.label "วันที่ครบชำระ"  %>
-      <%= f.date_field :invoice_date ,class: 'form-control',required: true,value: f.object.try(:strftime,"%d/%m/%Y") %>
+     <div class="form-group mt-4">
+      <%= f.label "เลขที่บิล"  %>
+      <%= f.text_field :bill_id , {:class=>'bill_no d-none'}   %>
+      <%= f.collection_select :bill_id, Bill.all,:id,:bill_no,{:prompt=> 'กรุณาเลือกเลขที่บิล'} , {:class=>'form-control',:disabled =>"true"}%>
       </div>
 
       <div class="form-group mt-4">
       <%= f.label "ชื่อลูกค้า"  %>
-    <%= f.collection_select :invoice_user, Customer.all,:id,:name,{:prompt=> 'กรุณาเลือกลูกค้า'}, {:class=>'form-control',required: true} %>
+      <%= f.text_field :invoice_user , {:class=>'bill_no d-none'}   %>
+      <%= f.collection_select :invoice_user, Customer.all,:id,:name,{:prompt=> 'กรุณาเลือกลูกค้า'}, {:class=>'form-control',:disabled =>"true"} %>
       </div>
 
       <div class="form-group mt-4">
-      <%= f.label "เลขที่บิล"  %>
-      <%= f.collection_select :bill_id, Bill.all,:id,:bill_no,{:prompt=> 'กรุณาเลือกเลขที่บิล'} , {:class=>'form-control',required: true}%>
+        <%= f.label "ราคา"  %>
+        <%= f.number_field :amount, step: :any  ,class: 'form-control',required: true %>
       </div>
-      
+
+      <div class="form-group mt-4">
+      <%= f.label "วันที่ครบชำระ"  %>
+      <%= f.date_field :invoice_date ,class: 'form-control',required: true%>
+      </div>
+
       <div class="form-group mt-4">
          <%= f.submit 'บันทึก',class: 'btn btn-success mt-2'%>
       </div>

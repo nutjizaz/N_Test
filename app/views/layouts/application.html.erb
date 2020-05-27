@@ -10,6 +10,27 @@
   </head>
 
   <body>
+  <nav class="navbar navbar-expand-lg navbar-light container">
+
+    <a class="navbar-brand pb-0 pt-0" href="/bills"> <h4 class="mb-0">Tiles</h4></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav mr-auto d-flex justify-content-end width-100">
+       <li class="nav-item">
+         <%= active_link_to "Customers", customers_path(), class: "nav-link", active: "active" %>
+        </li>
+        <li class="nav-item">
+           <%= active_link_to "Bills", bills_path(), class: "nav-link", active: "active" %>
+        </li>
+        <li class="nav-item">
+        <%= active_link_to "Invoices", invoices_path(), class: "nav-link", active: "active" %>
+        </li>
+      </ul>
+    </div>
+  </nav>
     <%= yield %>
   </body>
 </html>
